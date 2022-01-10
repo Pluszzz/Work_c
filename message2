@@ -1,0 +1,71 @@
+zhangjia    1580226128
+zhangsan    2030455537
+wangqicheng    123456
+student current=HEAD;
+  int i,*p,k;
+  puts("请选择要查询的项目满足条件的个数");
+  scanf("%d",&i);
+  p=(int*)malloc(sizeof(int));
+  char want[i][20];
+  int choice[i],j,compare,numnum[i];
+  puts("请选择要查询的条件:1:number,2:name,3:sex,4:sdept,5:Chinese,6:Mathmatics,7:English,8:tatal\n");
+  for(j=0;j<=i-1;j++)
+  {scanf("%d",&choice[j]);}
+  puts("你选择了第");
+  for(j=0;j<=i-1;j++)
+  {printf("%d",choice[j]);}
+  puts("条件\n");
+  puts("请按照顺序依次为查询的项给予满足的条件");
+  for(j=0;j<=i-1;j++)
+  {
+    if(choice[j]==6||choice[j]==7||choice[j]==8)
+    scanf("%d",&numnum[j]);
+    else 
+    scanf("%s",want[j]);
+  }
+  printf("---------------------------------------------------------------------------------------------\n");
+  printf("|Number      |Name           |Sex   |sdept             |Chinese         |Mathmatics|English  |tatal|\n"); 
+  while(current!=NULL)
+  {
+    for(j=0;j<=i-1;j++)
+    {
+      
+      switch(choice[j])
+      {
+        case 1:compare=strcmp(want[j],current->number);break;
+        case 2:compare=strcmp(want[j],current->name);break;
+        case 3:compare=strcmp(want[j],current->sex);break;
+        case 4:compare=strcmp(want[j],current->sdept);break;
+        case 5:compare=current->Chinese-numnum[j];break;
+        case 6:compare=current->Mathmatics-numnum[j];break;
+        case 7:compare=current->English-numnum[j];break;
+        case 8:compare=current->tatal-numnum[j];break;
+        default:compare=1;break;
+      }
+      if(compare!=0)
+      break;
+      else if(compare==0&&j==i-1)
+      {
+        printf("-----------+----------------+------+---------------------+--------------+--------+--------+---------\n");
+        while(current!=NULL)
+        {
+          for(i=0;current->number[i]!='\0';i++)
+          { printf("%c",current->number[i]);}
+          for(j=0;j<=12-i;j++)
+          {printf(" ");}
+          printf("|%-15s|%-6s|%-15s|",current->name,current->sex,current->sdept);
+          
+          printf("%-7d|%-10d|%-7d|%-5d|\n",current->Chinese,current->Mathmatics,current->English,current->tatal);
+          k++;
+          if(current->num==0)
+          break;
+          current=current->next;
+          printf("-------------+---------------+------+---------------+-------+----------+-------+------\n");
+        }
+      }
+    }
+    if(current->num==0)
+    break;
+    current=current->next;
+  }
+  printf("--------------------------------------------------------------------------------------------\n");
